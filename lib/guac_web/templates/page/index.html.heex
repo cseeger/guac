@@ -1,0 +1,26 @@
+<div id="map"></div>
+<script type="text/javascript">
+  mapboxgl.accessToken = "<%= Application.fetch_env!(:guac, :mapbox_key) %>";
+  const map = new mapboxgl.Map({
+    container: "map", // container ID
+
+    style: "mapbox://styles/mapbox/streets-v11",
+    center: [-122.4194, 37.7749],
+    zoom: 12
+  });
+
+  let popup = null, marker = null;
+  <%= for vendor <- @vendors do %>
+    <%= for %{lat_long: %{coordinates: {long, lat}}} <- vendor.vendor_locations do %>
+      popup = new mapboxgl.Popup({closeButton: false}).setText(
+        "<%= raw vendor.applicant %>"
+      )
+
+      // Create a new marker.
+      marker = new mapboxgl.Marker()
+      .setLngLat([<%= long %>, <%= lat %>])
+        .setPopup(popup)
+        .addTo(map);
+    <% end %>
+  <% end %>
+</script>
