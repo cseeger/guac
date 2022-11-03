@@ -2,6 +2,7 @@
 
 Welcome to Guac, an Elixir/Phoenix based starting point for web apps dedicated to San Francisco food truck data.
 
+Live deploy: [https://guac.fly.dev/](https://guac.fly.dev/)
 ## CSV Import
 
 ```mermaid
